@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>hangman</title>
+
+	<link href="assets/css/reset.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css">
+	<script src="assets/javascript/game.js"></script>
+</head>
+<body>
+	
+	<div id="game">
+ 		<p>play hangman.</p>
+	</div>
+
+	<script>
+
+		var hangedman = Object.create(hangman);
+		hangedman.initializeWords(); //seeds your word library. Do only once.
+		hangedman.initializeAll();
+
+		var html = hangedman.workingWord;
+		document.querySelector("#game").innerHTML = html;
+
+
+		document.onkeyup = function(event) {
+			var userGuess = String.fromCharCode(event.keyCode);
+			console.log('userGuess: ' + userGuess);
+
+			hangedman.guessSearch(userGuess);
+			console.log(hangedman.workingWord);
+
+			hangedman.checkWin();
+			hangedman.checkLose();
+
+			var html = hangedman.workingWord;
+			document.querySelector("#game").innerHTML = html;
+			 
+		}
+
+	</script>
+
+</body>
+
+</html>
