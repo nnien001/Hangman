@@ -84,9 +84,9 @@ console.log('javascript is working');
 			this.workingWord = []; //empty it.
 			for (i = 0; i < this.currentWord.length; i++) {
 				if (this.currentWord[i] == " ") {
-					this.workingWord.push(" ");
+					this.workingWord.push("_");
 				} else {
-					this.workingWord.push("_"); //seed with dummy values
+					this.workingWord.push("?"); //seed with dummy values
 				}
 			}
 
@@ -147,7 +147,7 @@ console.log('javascript is working');
 		},
 
 		checkWin: function() {
-			var pos = this.workingWord.indexOf('_');
+			var pos = this.workingWord.indexOf('?');
 
 			if (pos == -1) {
 				alert('winner! ' + this.currentWord);
@@ -169,7 +169,8 @@ console.log('javascript is working');
 		updateOutput: function() {
 			//output is just workingWord without the array markers
 			this.workingWordOutput = this.workingWord.toString();
-			this.workingWordOutput = this.workingWordOutput.replace(/,/g, "");
+
+			this.workingWordOutput = this.workingWordOutput.replace(/,/g, " ");
 
 			console.log("workingWordOutput: " + this.workingWordOutput);
 
