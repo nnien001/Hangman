@@ -2,17 +2,42 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>hangman</title>
+	<title>CATS 101: Hangman Game!</title>
 
 	<link href="assets/css/reset.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link href="assets/css/style.css" rel="stylesheet" type="text/css">
 	<script src="assets/javascript/game.js"></script>
 </head>
 <body>
 	
-	<div id="game">
- 		<p>play hangman.</p>
+	<header>
+		<nav class="navbar navbar-default navbar-fixed-top">
+		  <div class="container" width=100%>
+			<h1>CAT THEMED HANGMAN!</h1>
+				
+		  </div>
+		</nav>	
+	</header>
+
+	<div class="jumbotron">
+		<div class="container" width=100%>
+			<div id="game">
+ 				<p>play hangman.</p>
+			</div>
+		</div>
+
+		<div id="gallows">
+			<p>bad guesses go here </p>
+		</div>
+		<div id="scoreboard">
+ 			<p>score goes here</p>
+		</div>
+
 	</div>
+
+</body>
+	
 
 	<script>
 
@@ -20,8 +45,17 @@
 		hangedman.initializeWords(); //seeds your word library. Do only once.
 		hangedman.initializeAll();
 
-		var html = hangedman.workingWord;
-		document.querySelector("#game").innerHTML = html;
+		var game = hangedman.workingWordOutput;
+		document.querySelector("#game").innerHTML = game;
+			
+		var gallows = "bad guesses: " + hangedman.missed +
+			"<br>" + "miss count: " + hangedman.missedCount; +
+			"<br>" + "miss limit: " + hangedman.missLimit;
+		document.querySelector("#gallows").innerHTML = gallows;
+
+		var scoreboard = "wins: " + hangedman.wins + 
+			"<br>" + "losses: " + hangedman.losses;
+		document.querySelector("#scoreboard").innerHTML = scoreboard;
 
 
 		document.onkeyup = function(event) {
@@ -31,12 +65,30 @@
 			hangedman.guessSearch(userGuess);
 			console.log(hangedman.workingWord);
 
+			game = hangedman.workingWordOutput;
+			document.querySelector("#game").innerHTML = game;
+				
+			gallows = "bad guesses: " + hangedman.missed +
+				"<br>" + "miss count: " + hangedman.missedCount; +
+				"<br>" + "miss limit: " + hangedman.missLimit;
+			document.querySelector("#gallows").innerHTML = gallows;
+			
 			hangedman.checkWin();
 			hangedman.checkLose();
 
-			var html = hangedman.workingWord;
-			document.querySelector("#game").innerHTML = html;
-			 
+			game = hangedman.workingWordOutput;
+			document.querySelector("#game").innerHTML = game;
+
+			gallows = "bad guesses: " + hangedman.missed +
+				"<br>" + "miss count: " + hangedman.missedCount; +
+				"<br>" + "miss limit: " + hangedman.missLimit;
+			document.querySelector("#gallows").innerHTML = gallows;
+
+			scoreboard = "wins: " + hangedman.wins + 
+				"<br>" + "losses: " + hangedman.losses;
+			document.querySelector("#scoreboard").innerHTML = scoreboard;
+
+
 		}
 
 	</script>
