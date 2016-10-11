@@ -11,13 +11,13 @@
 </head>
 <body>
 	
+
 	<header>
-		<nav class="navbar navbar-default navbar-fixed-top">
-		  <div class="container" width=100%>
-			<h1>CAT THEMED HANGMAN!</h1>
-				
-		  </div>
-		</nav>	
+		<nav class="navbar navbar-default">
+		  	<div class="container-fluid">
+	   			<h1>Cat Breed Hangman!</h1>
+			</div>
+		</nav>
 	</header>
 
 	<div class="jumbotron">
@@ -26,15 +26,49 @@
  				<p>play hangman.</p>
 			</div>
 		</div>
-
-		<div id="gallows">
-			<p>bad guesses go here </p>
-		</div>
-		<div id="scoreboard">
- 			<p>score goes here</p>
-		</div>
-
 	</div>
+
+
+	<div class = "container-fluid" width= 100%>
+		<div class = "row">
+			<div class="col-lg-4">
+				<div class="panel panel-default">
+  					<div class="panel-heading">
+    					<h3 class="panel-title">Instructions</h3>
+  					</div>
+  					<div class="panel-body">
+    					<div id="instructions">
+							<p>Today's theme is domestic cat breeds. Hit any key a-z to start guessing</p>
+						</div>
+  					</div>
+				</div>
+			</div> 
+			<div class="col-lg-4">
+				<div class="panel panel-default">
+  					<div class="panel-heading">
+    					<h3 class="panel-title">The Gallows</h3>
+  					</div>
+  					<div class="panel-body">
+    					<div id="gallows">
+							<p>bad guesses go here </p>
+						</div>
+  					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="panel panel-default">
+  					<div class="panel-heading">
+    					<h3 class="panel-title">Scoreboard</h3>
+  					</div>
+  					<div class="panel-body">
+    					<div id="scoreboard">
+ 							<p>score goes here</p>
+						</div>
+  					</div>
+				</div>
+			</div>
+		</div>
+
 
 </body>
 	
@@ -45,18 +79,25 @@
 		hangedman.initializeWords(); //seeds your word library. Do only once.
 		hangedman.initializeAll();
 
-		var game = hangedman.workingWordOutput;
-		document.querySelector("#game").innerHTML = game;
+		//variables soly for updateDisplay function
+		var game;
+		var gallows;
+		var scoreboard;
+
+		function updateDisplay() {
+			game = hangedman.workingWordOutput;
+			document.querySelector("#game").innerHTML = game;
 			
-		var gallows = "bad guesses: " + hangedman.missed +
-			"<br>" + "miss count: " + hangedman.missedCount; +
+			gallows = "bad guesses: " + hangedman.missed +
 			"<br>" + "miss limit: " + hangedman.missLimit;
-		document.querySelector("#gallows").innerHTML = gallows;
+			document.querySelector("#gallows").innerHTML = gallows;
 
-		var scoreboard = "wins: " + hangedman.wins + 
+			scoreboard = "wins: " + hangedman.wins + 
 			"<br>" + "losses: " + hangedman.losses;
-		document.querySelector("#scoreboard").innerHTML = scoreboard;
+			document.querySelector("#scoreboard").innerHTML = scoreboard;
+		}
 
+		updateDisplay(); //initialize display ofr the first time
 
 		document.onkeyup = function(event) {
 			var userGuess = String.fromCharCode(event.keyCode);
@@ -65,29 +106,12 @@
 			hangedman.guessSearch(userGuess);
 			console.log(hangedman.workingWord);
 
-			game = hangedman.workingWordOutput;
-			document.querySelector("#game").innerHTML = game;
-				
-			gallows = "bad guesses: " + hangedman.missed +
-				"<br>" + "miss count: " + hangedman.missedCount; +
-				"<br>" + "miss limit: " + hangedman.missLimit;
-			document.querySelector("#gallows").innerHTML = gallows;
+			updateDisplay();			
 			
 			hangedman.checkWin();
 			hangedman.checkLose();
 
-			game = hangedman.workingWordOutput;
-			document.querySelector("#game").innerHTML = game;
-
-			gallows = "bad guesses: " + hangedman.missed +
-				"<br>" + "miss count: " + hangedman.missedCount; +
-				"<br>" + "miss limit: " + hangedman.missLimit;
-			document.querySelector("#gallows").innerHTML = gallows;
-
-			scoreboard = "wins: " + hangedman.wins + 
-				"<br>" + "losses: " + hangedman.losses;
-			document.querySelector("#scoreboard").innerHTML = scoreboard;
-
+			updateDisplay(); //do it one more time in case new game occurs due to win/lose
 
 		}
 

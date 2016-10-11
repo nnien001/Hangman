@@ -8,7 +8,6 @@ console.log('javascript is working');
 		workingWord: [],	//user's working word.
 		workingWordOutput: "", //for cleaner output. 
 		missed: [],
-		missedCount: 0,
 		missLimit: 8,
 		initializeWords: function() {	//organized vertically for ez editing
 			this.words.push(
@@ -72,8 +71,8 @@ console.log('javascript is working');
 		},
 
 		initializeMissedCount: function() {
-			this.missedCount = 0;
-			console.log('missedCount set to 0');
+			this.missLimit = 8;
+			console.log('missLimit set to ' + this.missLimit);
 		},
 
 		initializeMissed: function() {
@@ -136,12 +135,12 @@ console.log('javascript is working');
 			var pos = this.missed.indexOf(x);
 			if (pos == -1) {
 				this.missed.push(x);
-				this.missedCount += 1
+				this.missLimit--;
 				
 			}
 			else {
 				//do nothing. they guessed the same character.
-				console.log("missedCount = " + this.missedCount);
+				console.log("missLimit = " + this.missLimit);
 			}
 
 
@@ -159,7 +158,7 @@ console.log('javascript is working');
 		},
 
 		checkLose: function() {
-			if (this.missedCount >= this.missLimit) {
+			if (this.missLimit <= 0) {
 				alert('Game Over. It was ' + this.currentWord);
 				this.losses += 1;
 				console.log("wins: " + this.losses);
